@@ -1,0 +1,74 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <style type="text/css">
+      body {
+        margin: 10px;
+        white-space: nowrap;
+      }
+
+      h1 {
+        font-size: 15px;
+      }
+
+      #container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+    -->
+    <script src="jquery-3.2.1.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Savage Cop Supreme</h1>
+      <div id="svg_options">
+        <h4>Fill in your details</h4>
+        <input type="text" id="svg_name" placeholder="name as appears on CC"/><br/>
+        <input type="text" id="svg_email" placeholder="email"/><br/>
+        <input type="text" id="svg_phone" placeholder="phone"/><br/>
+        <input type="text" id="svg_adr1" placeholder="address"/><br/>
+        <input type="text" id="svg_adr2" placeholder="apt or suit"/><br/>
+        <input type="text" id="svg_zip" placeholder="zip"/><br/>
+        <input type="text" id="svg_city" placeholder="city"/><br/>
+        <input type="text" id="svg_state" placeholder="MI"/><br/>
+        <input type="text" id="svg_country" placeholder="USA"/><br/>
+        <input type="text" id="svg_cc_number" placeholder="CC Number"/><br/>
+        <input type="text" id="svg_cc_month" placeholder="CC Month"/><br/>
+        <input type="text" id="svg_cc_year" placeholder="CC Year"/><br/>
+        <input type="text" id="svg_cc_cvv" placeholder="CC CVV Code"/><br/>
+
+        <input type="text" id="svg_product_code" placeholder="Product Code"/><br/>
+        <input type="text" id="svg_category" placeholder="Category"/><br/>
+        <input type="text" id="svg_size" placeholder="Size"/><br/>
+
+        <button id="svg_save">Save</button>
+      </div>
+
+      <div style="display:none" id="svg_topButtons">
+          <button id="svg_edit">Edit Details</button>
+          <button id="svg_go">Go!</button>
+      </div>
+
+      <div style="display:none" id="svg_runningButtons">
+        <button id="svg_stop">Stop</div>
+      </div>
+
+      <div id="svg_err"></div>
+
+      <script src="saveDetails.js"></script>
+  </body>
+</html>
