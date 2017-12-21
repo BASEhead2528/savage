@@ -85,7 +85,7 @@ $("#svg_go").click(function(){
         SavageBot.State = SavageBot.States.Go;
         saveUserDetails(SavageBot);
         chrome.tabs.update( tabs[0].id, 
-            { url: "https://www.supremenewyork.com" + SavageBot.Locations[SavageBot.ProductData.Category] }
+            { url: "https://www.supremenewyork.com" + SavageBot.Locations[SavageBot.ProductData.Category.toLowerCase()]}
         ); 
     });
 
@@ -95,6 +95,8 @@ $("#svg_go").click(function(){
 $("#svg_stop").click(function(){
     $("#svg_topButtons").show();
     $("#svg_runningButtons").hide();
+    SavageBot.State = SavageBot.States.sleeping;
+    saveUserDetails(SavageBot);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -118,8 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
             $("#svg_size").val( SavageBot.ProductData.Size );
             $("#svg_category").val(SavageBot.ProductData.Category);
         }
-
-        
     });
 });
 

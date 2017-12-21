@@ -8,15 +8,40 @@ var Commands = {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     if(request.command && request.command == Commands.GetItemLink){
-        sendResponse({productLink:$("img[alt='"+request.productCode+"']").parent().attr("href")})
+        var productLink = $("img[alt='"+request.productCode+"']").parent().attr("href");
+        if(productLink && productLink != null){
+            sendResponse({productLink:productLink})
+        }
+        else{
+            //We don't care to send response because we are reloading and triggering an event on event page
+            window.location.reload();
+        }
     }
 
     if(request.command && request.command == Commands.AddItemToCart){
-        $("input[type='submit']")[0].click();
-        setTimeout(function(){
-            $("a.button.checkout")[0].click()
-        },600);
-        sendResponse({result:"success"});
+
+        if($("input[type='submit']").length > 0)
+        {
+            $("input[type='submit']")[0].click();
+
+
+            //Want to click the checkout button as fast as possible and if its not
+            //there we try again we have to account for lag
+            var cartButtonInterval = setInterval(waitForButton,100)
+
+            function waitForButton(){
+                //is the cart hidden
+                if($("#cart.hidden").length <= 0){
+                    //once cart is NOT hidden stop interval and click the cutton
+                    $("a.button.checkout")[0].click();
+                    clearInterval(cartButtonInterval);
+                    sendResponse({result:"success"});
+                }
+            }
+
+        }else{
+            sendResponse({result:"failure",reason:"item sold out"});
+        }
     }
 
     if(request.command && request.command == Commands.Checkout){
